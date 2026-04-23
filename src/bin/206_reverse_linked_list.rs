@@ -16,3 +16,7 @@ fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 
     prev
 }
+
+fn main(){
+    
+}
