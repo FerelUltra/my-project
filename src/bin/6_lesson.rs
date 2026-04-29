@@ -9,7 +9,7 @@ fn main() {
     ];
 
     for input in examples {
-        let result = daily_temperatures_right(input.clone());
+        let result = daily_temperatures(input.clone());
 
         println!("input:  {:?}", input);
         println!("result: {:?}", result);
