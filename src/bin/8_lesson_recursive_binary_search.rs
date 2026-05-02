@@ -53,7 +53,7 @@ fn main() {
     println!("{is_containing}");
 
     let mut result: Vec<i32> = Vec::new();
-    let preorder_result = preorder(&tree, result.as_mut() );
+    let preorder_result = preorder(&tree, result.as_mut());
 
     println!("{:?}", result);
 
@@ -134,21 +134,21 @@ pub fn max_value(root: &Option<Box<Node>>) -> Option<i32> {
     }
 }
 
-pub fn contains_tree(root: &Option<Box<Node>>, target: i32) -> bool{
-    match root{
+pub fn contains_tree(root: &Option<Box<Node>>, target: i32) -> bool {
+    match root {
         None => false,
-        Some(node)=> {
-            if node.val == target{
-                return true
+        Some(node) => {
+            if node.val == target {
+                return true;
             }
-        
+
             contains_tree(&node.left, target) || contains_tree(&node.left, target)
         }
     }
 }
 
-pub fn preorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
-    match root{
+pub fn preorder(root: &Option<Box<Node>>, result: &mut Vec<i32>) {
+    match root {
         None => return,
         Some(node) => {
             result.push(node.val);
@@ -158,7 +158,7 @@ pub fn preorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
     }
 }
 
-pub fn inorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
+pub fn inorder(root: &Option<Box<Node>>, result: &mut Vec<i32>) {
     match root {
         None => return,
         Some(node) => {
@@ -169,7 +169,7 @@ pub fn inorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
     }
 }
 
-pub fn postorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
+pub fn postorder(root: &Option<Box<Node>>, result: &mut Vec<i32>) {
     match root {
         None => return,
         Some(node) => {
@@ -180,8 +180,8 @@ pub fn postorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
     }
 }
 
-pub fn invert_tree(root: &mut Option<Box<Node>>){
-    match root{
+pub fn invert_tree(root: &mut Option<Box<Node>>) {
+    match root {
         None => return,
         Some(node) => {
             swap(&mut node.left, &mut node.right);
@@ -192,14 +192,33 @@ pub fn invert_tree(root: &mut Option<Box<Node>>){
     }
 }
 
-pub fn same_tree(root1: &Option<Box<Node>>, root2: &Option<Box<Node>>) -> bool{
-
-    match (root1, root2){
+pub fn same_tree(root1: &Option<Box<Node>>, root2: &Option<Box<Node>>) -> bool {
+    match (root1, root2) {
         (None, None) => true,
-        (None, Some(_))=> false,
-        (Some(_), None) => false,
         (Some(node1), Some(node2)) => {
-            return node1.val == node2.val && same_tree(&node1.left, &node2.left) && same_tree(&node1.right, &node2.right);
+            node1.val == node2.val
+                && same_tree(&node1.left, &node2.left)
+                && same_tree(&node1.right, &node2.right)
         }
+        _ => false,
+    }
+}
+
+pub fn is_mirror(left: &Option<Box<Node>>, right: &Option<Box<Node>>) -> bool {
+    match (left, right) {
+        (None, None) => true,
+        (Some(node_left), Some(node_right)) =>{
+            node_left.val == node_right.val 
+    && is_mirror(&node_left.left, &node_right.right)
+    && is_mirror(&node_left.right, &node_right.left)
+        }
+        _ => false,
+    }
+}
+
+pub fn symmetric(root: &Option<Box<Node>>) -> bool {
+    match root{
+        None=> true,
+        Some(node) => is_mirror(&node.left, &node.right)
     }
 }
