@@ -54,6 +54,11 @@ fn main() {
     let preorder_result = preorder(&tree, result.as_mut() );
 
     println!("{:?}", result);
+
+    let mut inorder_result: Vec<i32> = Vec::new();
+
+    inorder(&tree, &mut inorder_result.as_mut());
+    println!("{:?}", inorder_result);
 }
 
 pub fn binary_search_recursive(nums: &[i32], left: usize, right: usize, target: i32) -> i32 {
@@ -142,6 +147,17 @@ pub fn preorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
             result.push(node.val);
             preorder(&node.left, result);
             preorder(&node.right, result);
+        }
+    }
+}
+
+pub fn inorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
+    match root {
+        None => return,
+        Some(node) => {
+            inorder(&node.left, result);
+            result.push(node.val);
+            inorder(&node.right, result);
         }
     }
 }
