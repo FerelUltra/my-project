@@ -49,6 +49,11 @@ fn main() {
     let is_containing = contains_tree(&tree, 3);
 
     println!("{is_containing}");
+
+    let mut result: Vec<i32> = Vec::new();
+    let preorder_result = preorder(&tree, result.as_mut() );
+
+    println!("{:?}", result);
 }
 
 pub fn binary_search_recursive(nums: &[i32], left: usize, right: usize, target: i32) -> i32 {
@@ -126,6 +131,17 @@ pub fn contains_tree(root: &Option<Box<Node>>, target: i32) -> bool{
             }
         
             contains_tree(&node.left, target) || contains_tree(&node.left, target)
+        }
+    }
+}
+
+pub fn preorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
+    match root{
+        None => return,
+        Some(node) => {
+            result.push(node.val);
+            preorder(&node.left, result);
+            preorder(&node.right, result);
         }
     }
 }
