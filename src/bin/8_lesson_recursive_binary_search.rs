@@ -1,3 +1,5 @@
+use std::{mem::swap, ptr::swap};
+
 #[derive(Debug)]
 pub struct Node {
     pub val: i32,
@@ -174,6 +176,18 @@ pub fn postorder(root: &Option<Box<Node>>, result: &mut Vec<i32>){
             postorder(&node.left, result);
             postorder(&node.right, result);
             result.push(node.val);
+        }
+    }
+}
+
+pub fn invert_tree(root: &mut Option<Box<Node>>){
+    match root{
+        None => return,
+        Some(node) => {
+            swap(&mut node.left, &mut node.right);
+
+            invert_tree(&mut node.left);
+            invert_tree(&mut node.right);
         }
     }
 }
