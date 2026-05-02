@@ -191,3 +191,15 @@ pub fn invert_tree(root: &mut Option<Box<Node>>){
         }
     }
 }
+
+pub fn same_tree(root1: &Option<Box<Node>>, root2: &Option<Box<Node>>) -> bool{
+
+    match (root1, root2){
+        (None, None) => true,
+        (None, Some(_))=> false,
+        (Some(_), None) => false,
+        (Some(node1), Some(node2)) => {
+            return node1.val == node2.val && same_tree(&node1.left, &node2.left) && same_tree(&node1.right, &node2.right);
+        }
+    }
+}
