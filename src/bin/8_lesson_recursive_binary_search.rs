@@ -1,5 +1,5 @@
-use std::{mem::swap, ptr::swap};
-
+use std::{mem::swap};
+use std::collections::VecDeque;
 #[derive(Debug)]
 pub struct Node {
     pub val: i32,
@@ -239,3 +239,56 @@ pub fn symmetric(root: &Option<Box<Node>>) -> bool {
             }
         }
     }  
+
+    pub fn is_valid_bst(root: &Option<Box<Node>>) -> bool{
+        validate(root, None, None)
+    }
+
+    pub fn validate(root: &Option<Box<Node>>, min: Option<i32>, max: Option<i32>) -> bool{
+        match root{
+            None => true,
+            Some(node) => {
+
+                if let Some(min_value) = min {
+                    if node.val <=min_value {
+                        return false
+                    }
+                }
+
+                if let Some(max_value) = max{
+                    if node.val >= max_value{
+                        return false
+                    }
+                }
+            
+
+                validate(&node.left, min, Some(node.val)) && validate(&node.right,  Some(node.val), max)
+            }
+        }
+    }
+
+    pub fn bfs_values(root: &Option<Box<Node>>) -> Vec<i32> {
+        let mut result  = Vec::new();
+        let mut queue: VecDeque<&Node> = VecDeque::new();
+
+        if let Some(node) = root{
+            queue.push_back(node.as_ref());
+        }
+
+        while let Some(node) = queue.pop_front(){
+                   result.push(node.val);
+                   
+            if let Some(left_node) = &node.left{
+                queue.push_back(left_node.as_ref());
+            }
+            if let Some(right_node) = &node.right{
+                queue.push_back(right_node.as_ref());
+            }
+        }
+
+        result
+    }
+
+    pub fn level_order(root: &Option<Box<Node>>) -> Vec<Vec<i32>>{
+        
+    }
