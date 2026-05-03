@@ -222,3 +222,20 @@ pub fn symmetric(root: &Option<Box<Node>>) -> bool {
         Some(node) => is_mirror(&node.left, &node.right)
     }
 }
+
+    pub fn has_path_sum(root: &Option<Box<Node>>, target: i32) -> bool{
+        match root{
+            None => false,
+            Some(node) =>{
+    
+                let is_leaf = node.left.is_none() && node.right.is_none();
+                
+                if is_leaf{
+                    return node.val == target;
+                }
+                let new_target = target - node.val;
+    
+                has_path_sum(&node.left, new_target) || has_path_sum(&node.right, new_target)
+            }
+        }
+    }  
